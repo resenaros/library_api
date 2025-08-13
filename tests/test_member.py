@@ -49,8 +49,8 @@ class TestMember(unittest.TestCase):
         response = self.client.post('/members/login', json=credentials)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json['status'], 'success')
-        return response.json['token']
-    
+        return response.json['auth_token']
+
     def test_invalid_login(self):
         credentials = {
             "email": "bad_email@email.com",
@@ -58,8 +58,8 @@ class TestMember(unittest.TestCase):
         }
 
         response = self.client.post('/members/login', json=credentials)
-        self.assertEqual(response.status_code, 400)
-        self.assertEqual(response.json['message'], 'Invalid email or password!') 
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(response.json['messages'], 'Invalid email or password') 
     
     def test_get_all_members(self):
         response = self.client.get('/members/')
