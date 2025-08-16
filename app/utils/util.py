@@ -36,9 +36,9 @@ def token_required(f):
             member_id = data['sub']  # Fetch the member ID
 
         except jose.exceptions.ExpiredSignatureError:
-             return jsonify({'message': 'Token has expired!'}), 401
+            return jsonify({'message': 'Token has expired!'}), 401
         except jose.exceptions.JWTError:
-             return jsonify({'message': 'Invalid token!'}), 401
+            return jsonify({'message': 'Invalid token!'}), 401
 
         return f(member_id, *args, **kwargs)
 
